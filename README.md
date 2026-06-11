@@ -17,6 +17,7 @@ karimun-csirt-html/
 └── assets/
     ├── hero-bg.jpg
     ├── karimun-csirt-logo.png
+    ├── csirtkarimunpgppublickey.asc
     └── RFC-2350-KARIMUN-TTIS-v1.1_sign.pdf
 ```
 
