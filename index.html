@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KARIMUN CSIRT</title>
+  <meta name="description" content="KARIMUN-CSIRT - Tim Tanggap Insiden Siber Kabupaten Karimun">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── Layer 1: Background foto gedung ── */
+    .bg-photo {
+      position: fixed;
+      inset: 0;
+      background-image: url('https://raw.githubusercontent.com/persandian757/csirtkarimun.github.io/main/assets/gedung-bupati-karimun-depan.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    /* ── Layer 2: Dark overlay supaya teks tetap terbaca ── */
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 12, 28, 0.65);
+      z-index: 1;
+    }
+
+    /* ── Layer 3: Grid siber animasi ── */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 200, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 200, 255, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridMove 20s linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes gridMove {
+      0%   { background-position: 0 0; }
+      100% { background-position: 40px 40px; }
+    }
+
+    /* ── Layer 4: Radial glow tengah ── */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0, 90, 200, 0.20) 0%, transparent 70%);
+      z-index: 3;
+    }
+
+    /* ── Floating particles ── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .particle {
+      position: absolute;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: rgba(0, 190, 255, 0.55);
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) translateX(0px); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+    }
+
+    /* ── Card tengah ── */
+    .card {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 3rem 2.5rem 2.5rem;
+      max-width: 460px;
+      width: 90%;
+      background: rgba(10, 20, 45, 0.72);
+      border: 1px solid rgba(0, 180, 255, 0.25);
+      border-radius: 20px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 0 50px rgba(0, 120, 255, 0.18),
+        0 4px 60px rgba(0, 0, 0, 0.55);
+      animation: fadeUp 0.9s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Logo ── */
+    .logo {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 1.5rem;
+      filter: drop-shadow(0 0 20px rgba(0, 160, 255, 0.55));
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 28px rgba(0, 200, 255, 0.8));
+    }
+
+    /* ── Teks judul ── */
+    .title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: #e8edf3;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 0 20px rgba(0, 190, 255, 0.45);
+    }
+
+    .subtitle {
+      font-size: 0.75rem;
+      color: rgba(170, 210, 255, 0.55);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ── Garis pembatas ── */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00b4ff, transparent);
+      margin: 0 auto 1.8rem;
+      border-radius: 2px;
+    }
+
+    /* ── Pesan utama ── */
+    .message {
+      font-size: 0.95rem;
+      color: rgba(215, 235, 255, 0.85);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .message strong {
+      color: #66ccff;
+      font-size: 1.05rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Tombol ── */
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: linear-gradient(135deg, #0066cc, #003f8a);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(0, 180, 255, 0.4);
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 18px rgba(0, 100, 255, 0.35);
+    }
+    .link-btn:hover {
+      background: linear-gradient(135deg, #007fff, #004faa);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 26px rgba(0, 150, 255, 0.55);
+    }
+    .link-btn svg {
+      width: 15px; height: 15px; flex-shrink: 0;
+    }
+
+    /* ── Footer note ── */
+    .footer-note {
+      margin-top: 1.8rem;
+      font-size: 0.7rem;
+      color: rgba(170, 200, 255, 0.3);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background layers -->
+  <div class="bg-photo"></div>
+  <div class="bg-overlay"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <!-- Floating particles -->
+  <div class="particles" aria-hidden="true">
+    <div class="particle" style="left:8%;  animation-duration:13s; animation-delay:0s;"></div>
+    <div class="particle" style="left:22%; animation-duration:9s;  animation-delay:2s;  width:2px; height:2px;"></div>
+    <div class="particle" style="left:38%; animation-duration:15s; animation-delay:5s;"></div>
+    <div class="particle" style="left:55%; animation-duration:11s; animation-delay:1s;  width:2px; height:2px;"></div>
+    <div class="particle" style="left:70%; animation-duration:10s; animation-delay:7s;"></div>
+    <div class="particle" style="left:85%; animation-duration:8s;  animation-delay:3s;  width:2px; height:2px;"></div>
+    <div class="particle" style="left:48%; animation-duration:12s; animation-delay:9s;"></div>
+  </div>
+
+  <!-- Card utama -->
+  <div class="card">
+    <img
+      class="logo"
+      src="https://raw.githubusercontent.com/persandian757/csirtkarimun.github.io/main/assets/karimun-csirt-logo.png"
+      alt="Logo KARIMUN CSIRT"
+      loading="eager"
+    >
+    <div class="title">KARIMUN CSIRT</div>
+    <div class="subtitle">Tim Tanggap Insiden Siber · Kab. Karimun</div>
+    <div class="divider"></div>
+    <p class="message">
+      Silahkan ke alamat situs resmi<br>
+      <strong>CSIRT.KARIMUNKAB.GO.ID</strong><br>
+      untuk selanjutnya
+    </p>
+    <a
+      class="link-btn"
+      href="https://csirt.karimunkab.go.id"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+      Kunjungi Situs Resmi
+    </a>
+    <div class="footer-note">© 2026 KARIMUN-CSIRT. Seluruh hak cipta dilindungi.</div>
+  </div>
+
+</body>
+</html>
